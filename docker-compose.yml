@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  builder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # Mount source (need submodules!)
+      - .:/build:rw
+      # Mount ccache for faster rebuilds
+      - ccache:/build/.ccache
+    environment:
+      - CCACHE_DIR=/build/.ccache
+      - MAKEFLAGS=-j4
+    # Allocate more memory (16GB recommended)
+    mem_limit: 16g
+    mem_reservation: 8g
+    # Map output directory to host
+    working_dir: /build
+
+volumes:
+  ccache:
+    driver: local
