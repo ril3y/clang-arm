@@ -30,8 +30,9 @@ WORKDIR /build
 COPY build.sh /build/
 RUN chmod +x /build/build.sh
 
-# Environment for build
-ENV MAKEFLAGS="-j$(nproc)"
+# Environment for build - will be overridden by docker-compose
+ENV MAKEFLAGS="-j24"
+ENV CCACHE_MAXSIZE="10G"
 
 # Labels
 LABEL maintainer="battlewithbytes"

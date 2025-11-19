@@ -12,10 +12,11 @@ services:
       - ccache:/build/.ccache
     environment:
       - CCACHE_DIR=/build/.ccache
-      - MAKEFLAGS=-j4
-    # Allocate more memory (16GB recommended)
-    mem_limit: 16g
-    mem_reservation: 8g
+      - MAKEFLAGS=-j24
+    # Allocate more memory for 24-core parallel build
+    mem_limit: 32g
+    mem_reservation: 16g
+    cpus: 24
     # Map output directory to host
     working_dir: /build
 
