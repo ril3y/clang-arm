@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.sh text eol=lf
+*.guess text eol=lf
+*.sub text eol=lf

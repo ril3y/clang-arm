@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     build-essential \
     ca-certificates \
+    dos2unix \
     && rm -rf /var/lib/apt/lists/*
 
 # Set up ccache for faster rebuilds
@@ -40,5 +41,5 @@ LABEL description="YoWASP Clang builder with ARM backend for embedded developmen
 LABEL version="1.0.0"
 LABEL targets="ARM Cortex-M (STM32, Arduino, Teensy, etc.)"
 
-# Default command: run the build
-CMD ["/bin/bash", "/build/build.sh"]
+# Default command: fix line endings then run the build
+CMD ["/bin/bash", "-c", "find . -type f \\( -name '*.sh' -o -name '*.guess' -o -name '*.sub' \\) -exec dos2unix {} \\; 2>/dev/null; ./build.sh"]
